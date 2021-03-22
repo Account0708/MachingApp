@@ -69,8 +69,12 @@ if (isset($_POST['ok'])) {
 
     if (empty($error)) {
 
-        $image = date('YmdHis') . $_FILES['image']['name'];
-        move_uploaded_file($_FILES['image']['tmp_name'], '../member_picture/' . $image);
+        if (isset($_FILES['image']) && $_FILES['image']['error'] == UPLOAD_ERR_OK) {
+            $image = date('YmdHis') . $_FILES['image']['name'];
+            move_uploaded_file($_FILES['image']['tmp_name'], '../member_picture/' . $image);
+        } else {
+            $image = htmlspecialchars($member['picture'], ENT_QUOTES);
+        }
 
         $_SESSION['setting'] = $_POST;
         $_SESSION['setting']['image'] = $image;
@@ -172,8 +176,8 @@ if (isset($_POST['ok'])) {
         </div>
         <div id="content">
             <div class=" flex jc_end">
-                <div style="text-align: right" class="mlr10"><a href="index.php">投稿ページ</a></div>
-                <div style="text-align: right" class="mlr10"><a href="logout.php">ログアウト</a></div>
+                <div style="text-align: right" class="mlr10"><a href="../index.php">投稿ページ</a></div>
+                <div style="text-align: right" class="mlr10"><a href="../logout.php">ログアウト</a></div>
             </div>
             <form action="" method="post" enctype="multipart/form-data">
                 <dl>
