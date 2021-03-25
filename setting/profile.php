@@ -80,13 +80,14 @@ if (isset($_POST['ok'])) {
         $_SESSION['setting']['image'] = $image;
     }
 
-    $statement = $db->prepare('UPDATE members SET name=?, email=?, picture=?, birthday=?, gender=?');
+    $statement = $db->prepare('UPDATE members SET name=?, email=?, picture=?, birthday=?, gender=? WHERE id=?;');
     $statement->execute(array(
         $_SESSION['setting']['name'],
         $_SESSION['setting']['email'],
         $_SESSION['setting']['image'],
         $_SESSION['setting']['birthday'],
-        $_SESSION['setting']['gender']
+        $_SESSION['setting']['gender'],
+        $member['id']
     ));
     unset($_SESSION['setting']);
 

@@ -78,7 +78,7 @@ if (isset($_REQUEST['res'])) {
     </div>
     <div id="content">
       <div class=" flex jc_end">
-        <div style="text-align: right" class="mlr10"><a href="profile.php">プロフィール</a></div>
+        <div style="text-align: right" class="mlr10"><a href="./profile.php?id=<?php echo htmlspecialchars($member['id'], ENT_QUOTES); ?>">プロフィール</a></div>
         <div style="text-align: right" class="mlr10"><a href="logout.php">ログアウト</a></div>
       </div>
 
@@ -99,7 +99,9 @@ if (isset($_REQUEST['res'])) {
 
       <?php foreach ($posts as $post) : ?>
         <div class="msg">
-          <img src="./member_picture/<?php print(htmlspecialchars($post['picture'], ENT_QUOTES)); ?>" width="48" height="48" alt="<?php print(htmlspecialchars($post['name'], ENT_QUOTES)); ?>" />
+          <a href="./profile.php?id=<?php echo htmlspecialchars($post['member_id'], ENT_QUOTES); ?>">
+            <img src="./member_picture/<?php print(htmlspecialchars($post['picture'], ENT_QUOTES)); ?>" width="48" height="48" alt="<?php print(htmlspecialchars($post['name'], ENT_QUOTES)); ?>" />
+          </a>
           <p><?php print(htmlspecialchars($post['message'], ENT_QUOTES)); ?><span class="name">（<?php print(htmlspecialchars($post['name'], ENT_QUOTES)); ?>）</span>[<a href="index.php?res=<?php print(htmlspecialchars($post['id'], ENT_QUOTES)); ?>">Re</a>]</p>
           <p class="day"><a href="view.php?id=<?php echo htmlspecialchars($post['id'], ENT_QUOTES); ?>"><?php print(htmlspecialchars($post['created'], ENT_QUOTES)); ?></a>
             <?php if ($post['reply_message_id'] > 0) :  ?>

@@ -85,7 +85,7 @@ if(!empty($_POST)) {
     </form>
   </div>
   <div id="foot">
-    <p><img src="images/txt_copyright.png" width="136" height="15" alt="(C) H2O Space. MYCOM" /></p>
+    <!-- <p><img src="images/txt_copyright.png" width="136" height="15" alt="(C) H2O Space. MYCOM" /></p> -->
   </div>
 </div>
 </body>

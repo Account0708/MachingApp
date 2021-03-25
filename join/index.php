@@ -108,6 +108,13 @@ if($_REQUEST['action'] == 'rewrite' && isset($_SESSION['join'])) {
 	</dl>
 	<div><input type="submit" value="入力内容を確認する" /></div>
 </form>
+
+<div>
+<br>
+<br>
+<br>
+<a href="../login.php">ログイン画面へ</a>
+</div>
 </div>
 </body>
 </html>
