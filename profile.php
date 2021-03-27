@@ -54,6 +54,8 @@ if ((int)$_GET["id"] > 0) {
     $page = $member['id'];
 }
 
+// birthday
+
 $birthday = '';
 if ($member['birthday'] == 0) {
     $birthday = '入力されていません';
@@ -67,6 +69,8 @@ if ($other_member['birthday'] == 0) {
 } else {
     $other_birthday = $other_member['birthday'];
 }
+
+// gender
 
 $gender = '';
 if ($member['gender'] == 0) {
@@ -89,6 +93,64 @@ if ($other_member['gender'] == 0) {
 } else if ($other_member['gender'] == 9) {
     $other_gender = 'その他';
 }
+
+// hobby
+
+if ($page == $member['id']) {
+
+    $hobby = '';
+    if ($member['hobby'] == 0) {
+        $hobby = '回答無し';
+    } else if ($member['hobby'] == 1) {
+        $hobby = '映画鑑賞';
+    } else if ($member['hobby'] == 2) {
+        $hobby = 'ゲーム';
+    } else if ($member['hobby'] == 3) {
+        $hobby = '運動';
+    }
+} else {
+
+    $other_hobby = '';
+    if ($other_member['hobby'] == 0) {
+        $other_hobby = '回答無し';
+    } else if ($other_member['hobby'] == 1) {
+        $other_hobby = '映画鑑賞';
+    } else if ($other_member['hobby'] == 2) {
+        $other_hobby = 'ゲーム';
+    } else if ($other_member['hobby'] == 3) {
+        $other_hobby = '運動';
+    }
+}
+
+
+// address
+
+if ($page == $member['id']) {
+
+    if ($member['address'] == '') {
+        $member['address'] = '回答無し';
+    }
+} else {
+
+    if ($other_member['address'] == '') {
+        $other_member['address'] = '回答無し';
+    }
+}
+
+// occupation
+
+if ($page == $member['id']) {
+
+    if ($member['occupation'] == '') {
+        $member['occupation'] = '回答無し';
+    }
+} else {
+
+    if ($other_member['occupation'] == '') {
+        $other_member['occupation'] = '回答無し';
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -137,7 +199,8 @@ if ($other_member['gender'] == 0) {
                     if ($page == $member['id']) {
                         echo htmlspecialchars($member['email'], ENT_QUOTES);
                     } else {
-                        echo htmlspecialchars($other_member['email'], ENT_QUOTES);
+                        // echo htmlspecialchars($other_member['email'], ENT_QUOTES);
+                        echo '【表示されません】';
                     }
                     ?>
                 </dd>
@@ -148,40 +211,74 @@ if ($other_member['gender'] == 0) {
                 <dt>写真</dt>
                 <dd>
                     <?php if ($member['picture'] !== '') : ?>
-                        <img width="250px" height="auto" src="member_picture/<?php if ($page == $member['id']) { echo htmlspecialchars($member['picture'], ENT_QUOTES); } else { echo htmlspecialchars($other_member['picture'], ENT_QUOTES); } ?>" alt="">
+                        <img width="250px" height="auto" src="member_picture/<?php if ($page == $member['id']) {
+                                                                                    echo htmlspecialchars($member['picture'], ENT_QUOTES);
+                                                                                } else {
+                                                                                    echo htmlspecialchars($other_member['picture'], ENT_QUOTES);
+                                                                                } ?>" alt="">
                     <?php endif; ?>
                 </dd>
                 <dt>生年月日</dt>
                 <dd>
                     <?php
                     if ($page == $member['id']) {
-                     echo htmlspecialchars($birthday, ENT_QUOTES); 
+                        echo htmlspecialchars($birthday, ENT_QUOTES);
                     } else {
-                     echo htmlspecialchars($other_birthday, ENT_QUOTES); 
+                        echo htmlspecialchars($other_birthday, ENT_QUOTES);
                     }
-                     ?>
+                    ?>
                 </dd>
                 <dt>性別</dt>
                 <dd>
                     <?php
                     if ($page == $member['id']) {
-                    echo htmlspecialchars($gender, ENT_QUOTES); 
+                        echo htmlspecialchars($gender, ENT_QUOTES);
                     } else {
-                    echo htmlspecialchars($other_gender, ENT_QUOTES); 
-
+                        echo htmlspecialchars($other_gender, ENT_QUOTES);
+                    }
+                    ?>
+                </dd>
+                <dt>趣味</dt>
+                <dd>
+                    <?php
+                    if ($page == $member['id']) {
+                        echo htmlspecialchars($hobby, ENT_QUOTES);
+                    } else {
+                        echo htmlspecialchars($other_hobby, ENT_QUOTES);
+                    }
+                    ?>
+                </dd>
+                <dt>所在地</dt>
+                <dd>
+                    <?php
+                    if ($page == $member['id']) {
+                        echo htmlspecialchars($member['address'], ENT_QUOTES);
+                    } else {
+                        echo htmlspecialchars($other_member['address'], ENT_QUOTES);
+                    }
+                    ?>
+                </dd>
+                <dt>職種</dt>
+                <dd>
+                    <?php
+                    if ($page == $member['id']) {
+                        echo htmlspecialchars($member['occupation'], ENT_QUOTES);
+                    } else {
+                        echo htmlspecialchars($other_member['occupation'], ENT_QUOTES);
                     }
                     ?>
                 </dd>
             </dl>
 
             <div>
-                <p>
-                    <?php if ($page == $member['id']) : ?>
-                        <a href="./setting/profile.php">
-                            編集する
-                        </a>
-                    <?php endif ?>
-                </p>
+                <a href="./index.php" class="mlr10">
+                    戻る
+                </a>
+                <?php if ($page == $member['id']) : ?>
+                    <a href="./setting/profile.php" class="mlr10">
+                        編集する
+                    </a>
+                <?php endif ?>
             </div>
 
 

@@ -66,6 +66,15 @@ if (isset($_POST['ok'])) {
     if ($_POST['gender'] == '') {
         $_POST['gender'] = $member['gender'];
     }
+    if ($_POST['hobby'] == '') {
+        $_POST['hobby'] = $member['hobby'];
+    }
+    if ($_POST['address'] == '') {
+        $_POST['address'] = htmlspecialchars($member['address'], ENT_QUOTES);
+    }
+    if ($_POST['occupation'] == '') {
+        $_POST['occupation'] = htmlspecialchars($member['occupation'], ENT_QUOTES);
+    }
 
     if (empty($error)) {
 
@@ -80,13 +89,16 @@ if (isset($_POST['ok'])) {
         $_SESSION['setting']['image'] = $image;
     }
 
-    $statement = $db->prepare('UPDATE members SET name=?, email=?, picture=?, birthday=?, gender=? WHERE id=?;');
+    $statement = $db->prepare('UPDATE members SET name=?, email=?, picture=?, birthday=?, gender=?, hobby=?, address=?, occupation=? WHERE id=?;');
     $statement->execute(array(
         $_SESSION['setting']['name'],
         $_SESSION['setting']['email'],
         $_SESSION['setting']['image'],
         $_SESSION['setting']['birthday'],
         $_SESSION['setting']['gender'],
+        $_SESSION['setting']['hobby'],
+        $_SESSION['setting']['address'],
+        $_SESSION['setting']['occupation'],
         $member['id']
     ));
     unset($_SESSION['setting']);
@@ -234,6 +246,43 @@ if (isset($_POST['ok'])) {
                                                     echo 'selected';
                                                 } ?>>その他</option>
                         </select>
+                    </dd>
+                    <dt>趣味</dt>
+                    <dd>
+                        <select name="hobby" value="<?php $member['hobby']; ?>">
+                            <option value="0" <?php if ($member['hobby'] == 0) {
+                                                    echo 'selected';
+                                                } ?>>回答無し</option>
+                            <option value="1" <?php if ($member['hobby'] == 1) {
+                                                    echo 'selected';
+                                                } ?>>映画鑑賞</option>
+                            <option value="2" <?php if ($member['hobby'] == 2) {
+                                                    echo 'selected';
+                                                } ?>>ゲーム</option>
+                            <option value="3" <?php if ($member['hobby'] == 3) {
+                                                    echo 'selected';
+                                                } ?>>運動</option>
+                        </select>
+                    </dd>
+                    <dt>所在地</dt>
+                    <dd>
+                        <input type="text" name="address" size="35" maxlength="255" value="<?php
+                                                                                            if ($member['address'] == '') {
+                                                                                                echo '回答無し';
+                                                                                            } else {
+                                                                                                print(htmlspecialchars($member['address'], ENT_QUOTES));
+                                                                                            }
+                                                                                            ?>" />
+                    </dd>
+                    <dt>職種</dt>
+                    <dd>
+                        <input type="text" name="occupation" size="35" maxlength="255" value="<?php
+                                                                                                if ($member['occupation'] == '') {
+                                                                                                    echo '回答無し';
+                                                                                                } else {
+                                                                                                    print(htmlspecialchars($member['occupation'], ENT_QUOTES));
+                                                                                                }
+                                                                                                ?>" />
                     </dd>
                 </dl>
 
